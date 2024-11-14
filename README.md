@@ -1,121 +1,133 @@
-![codegeex_logo](https://lfs.aminer.cn/misc/wangshan/pretrain/codegeex/codegeex_logo.png)
+# 介绍
+## 2024 11 14
+基于[codegeex](https://github.com/CodeGeeX/codegeex-vscode-extension?tab=readme-ov-file)。目前只改了接口部分（位于getCodeCompletions.ts），和删除了调查功能。因此有很多缺漏，如ui未显示完全等。
+还好最基础的小说辅助功能基本实现了。
+![image](https://github.com/user-attachments/assets/d6cfe1ae-7042-4388-9172-1f4fccbb081b)
 
-🌐 <a href="https://github.com/THUDM/CodeGeeX/blob/main/vscode-extension/README_zh.md" target="_blank">中文</a>
-
-![CodeGeeX license](https://img.shields.io/github/license/THUDM/CodeGeeX?colorA=0B9FE0&colorB=brightgreen)
-![CodeGeeX vscode extension version](https://img.shields.io/visual-studio-marketplace/v/aminer.codegeex?colorA=0B9FE0&colorB=brightgreen)
-![CodeGeeX download](https://img.shields.io/visual-studio-marketplace/d/aminer.codegeex?colorA=0B9FE0&colorB=brightgreen)
-![CodeGeeX vscode extension rating](https://img.shields.io/visual-studio-marketplace/stars/aminer.codegeex?colorA=0B9FE0&colorB=brightgreen)
-![CodeGeeX vscode extension last update](https://img.shields.io/visual-studio-marketplace/last-updated/aminer.codegeex?colorA=0B9FE0&colorB=brightgreen)
-[![CodeGeeX github stars](https://img.shields.io/github/stars/THUDM/CodeGeeX?style=social)](https://github.com/THUDM/CodeGeeX)
-
-CodeGeeX is an AI-based coding assistant, which can suggest code in the current or following lines.  It is powered by a large-scale multilingual code generation model with 13 billion parameters, pretrained on a large code corpus of more than 20 programming languages.(For more information, please check out our [Homepage](https://models.aminer.cn/codegeex/) and [GitHub repo](https://github.com/THUDM/CodeGeeX).) 
-
-In addition, with the large-scale model, CodeGeeX can translate codes to other programming languages, and  provides customizable features (**Prompt Mode**) to help you configure your own programming assistant. Happy coding!
-
-Please kindly let us know if you encounter any problem or have any suggestion, via [codegeex@aminer.cn](mailto:codegeex@aminer.cn). Or you can join our [Slack](https://join.slack.com/t/codegeexworkspace/shared_invite/zt-1m76zecsi-~JW59Jmvx09lX4Pqv9oE_w) or [Telegram](https://t.me/+IipIayJ32B1jOTg1) or [WeChat/微信群](https://wj.qq.com/s2/11274205/a15b/)  to give us your feedback or get support. Furthermore, welcome to fill out the [survey](https://wj.qq.com/s2/11260705/6cd6/)/[问卷](https://wj.qq.com/s2/11259178/fd49/) to tell us about all your feelings for our extension.
-
-### Quick menu:
-
-**[Basic Usage](#basic-usage)**<br/>
-**[Privacy](#privacy)**<br/>
-**[Guidance](#guidance)**<br/>
-&emsp;***[Stealth Mode](#stealth-mode)***<br />
-&emsp;***[Interactive Mode](#interactive-mode)***<br/>
-&emsp;***[Translation Mode](#translation-mode)***<br/>
-&emsp;***[Prompt Mode](#prompt-mode)***<br/>
-
-## Basic Usage
-Make sure vscode version is >= 1.68.0. Install the extension and enable it globally. There are three modes of usage:
-
--   **Stealth mode**: Keep CodeGeeX activated, it will start generating codes when you stop writing (the icon at the bottom of VSCode starts spinning). When the generated code is shown in gray, just press ``Tab`` to insert the generated codes. 
--   **Interactive mode**: Press ``Ctrl+Enter`` to activate the interactive mode, CodeGeeX will generate ``X`` candidates and show them in the right panel (``X`` can be modified in extension settings ``Candidate Num``). Then, select the best candidate by clicking on it.
--   **Translation mode**: Select code, and press ``Ctrl+Alt+T`` to activate the translation mode. Then, choose the language of the selected code. You will get the code translated into the same language as your current editor. Click on the ``use code`` button to insert the result. You can also configure in the settings whether to comment out the original code or to replace it.
--   **Prompt mode**: Select codes to be used as input, then press ``Alt/Option+t`` to trigger the prompt mode. It will show a list of pre-defined prompt templates and choose one to generate codes with your input. This mode is fully customizable, you can add your own templates in the extension settings ``Prompt Templates``. 
-
-## Privacy
-
-We highly respect the privacy of your code. The code is only used as the input of CodeGeeX to assist your programming. At the first time of usage, we will ask if you agree to share the generated code only for research purpose (**disabled** by default).
-
-## Guidance
-Please see the details and examples for how to use the three modes in CodeGeeX:
-### Stealth mode
-In this mode, CodeGeeX will start generating codes when you stop writing (the icon at the bottom of VSCode starts spinning). When the generated code is shown in gray, just press ``Tab`` to insert the generated codes. You can also press ``Alt/Option+[`` or ``]`` to change between candidates. If you are not satisfied with the current suggestions, you can also press ``Alt/Option+\`` to get new suggestions. Change the number of candidates in the extension settings ``Candidate Num`` (more candidates will slow down the generation speed). **Note**: The generation always starts at the current position of your cursor, thus if you modify the code before the generation is finished, it will probably cause bugs. We keep working on making the generation faster.
-
-![image](https://lfs.aminer.cn/misc/wangshan/pretrain/codegeex/bubble_sort_go.gif)
-
-### Interactive mode
-In this mode, press ``Ctrl+Enter`` to generate codes and visualize the candidates in another panel. Then, click on the best candidate to insert the generated codes to the current position of cursor. 
-
-![image](https://lfs.aminer.cn/misc/wangshan/pretrain/codegeex/interactive_mode2.gif)
-
-### Translation mode
-In this mode, paste or tape some code from another language to the current file, select the code, and press ``Ctrl+Alt+T``. Then, choose the language of the selected code. Wait for a few seconds, you will get the code translated into the same language as your current editor. Click on the ``use code`` button to insert the result into the current position of your cursor. You can also configure in the settings whether to comment out the original code or to replace it.
-
-![image](https://lfs.aminer.cn/misc/wangshan/pretrain/codegeex/translation_cpp_to_python.gif)
-
-### Prompt mode
-In this mode, you can add extra prompts to the input and implement some cool features, like code explanation, summarization, generation with specific coding style, and more. The principle behind is the few-shot ability of CodeGeeX. When you provide a few examples as extra prompts in the input, CodeGeeX will imitate what are done by these examples and generate codes accordingly. For example, you can give an example that explains each line of code. Select the code you want to explain, then press ``Alt/Option+t`` to trigger the prompt mode. It will show a list of pre-defined prompt templates and choose the ``explanation`` to generate codes with your input. Magically, the codes will be explained line by line.
-
-![image](https://lfs.aminer.cn/misc/wangshan/pretrain/codegeex/explanation_python.gif)
-
-The template of the above example looks like the following, which contains ``[Example code]``, ``<INPUT>``, ``[Example code with explanation]`` and ``[Explanation head]``. ``<INPUT>`` is where the selected code will be inserted. ``<INPUT0:1>`` means the first line of your input (which is used here to ensure the same function will be explained). When you use the prompt mode, CodeGeeX will combine your input with the template and use them all as the input to generate codes. 
-
-```python
-# language: Python
-
-def sum_squares(lst):
-    sum = 0
-    for i in range(len(lst)):
-        if i % 3 == 0:
-            lst[i] = lst[i]**2
-        elif i % 4 == 0:
-            lst[i] = lst[i]**3
-        sum += lst[i]
-    return sum
-
-<INPUT>
-
-# Explain the code line by line
-def sum_squares(lst):
-    # initialize sum
-    sum = 0
-    # loop through the list
-    for i in range(len(lst)):
-        # if the index is a multiple of 3
-        if i % 3 == 0:
-            # square the entry
-            lst[i] = lst[i]**2
-        # if the index is a multiple of 4
-        elif i % 4 == 0:
-            # cube the entry
-            lst[i] = lst[i]**3
-        # add the entry to the sum
-        sum += lst[i]
-    # return the sum
-    return sum
-
-# Explain the code line by line
-<INPUT:0,1>
+用的是本地ollama,qwen2.5:7b。
+接口方面，是我魔改了一下[ChatRWKV-Novel-api](https://github.com/Tlntin/ChatRWKV-Novel-api)，将使用本地rwkv模型(可能是我使用的模型太大了，很慢，所以动手改动一下)改为了ollama接口
+原本想用rwkv6cn的模型(写小说用到)的，可惜虽然成功用guff模型文件导入ollama中了，但运行报错。试了两个模型都不行，苦于是在期末考试复习中忙中偷闲尝试的，无奈放弃。
+只用了一个多小时在codegeex插件的ai注释下熟悉一下[codegeex](https://github.com/CodeGeeX/codegeex-vscode-extension?tab=readme-ov-file)的代码。还好有ai,不然还真不会ts。然后改了一个上午，很简陋。
+等期末考结束，有缘再更新。
+# 效果
+最后贴一下ai输出的小说
+## 参考的小说大纲 《丞相保重》
 ```
+### 第一章：我想做个好人
 
-And here is another example for python docstring generation    
-```python
-def add_binary(a, b):
-    '''
-    Returns the sum of two decimal numbers in binary digits.
 
-    Parameters:
-            a (int): A decimal integer
-            b (int): Another decimal integer
 
-    Returns:
-            binary_sum (str): Binary string of the sum of a and b
-    '''
-    binary_sum = bin(a+b)[2:]
-    return binary_sum
+#### 章节概述:
 
-<INPUT>
+杨羡穿越至即将亡国的大周王朝，担任丞相之职。面对复杂的政治局势和九世仇敌的威胁，在一次刺杀事件中被保护人杨纯救下，并获得了《大梁王朝》游戏中的技能表。
+
+
+
+#### 关键情节:
+
+- 杨羡穿越至即将亡国的大周，担任丞相一职。
+
+- 夏云桦临终前托付夏宫涅给杨羡，并让其做“相父”以稳定局势，化解桓氏与夏氏九世之仇。
+
+- 一次刺杀事件中被黑衣刺客暗算，在杨纯的保护下成功脱险。
+
+
+
+### 第二章：忠诚守护者
+
+#### 章节概述:
+在应对刺杀事件后，府中秩序恢复平静，并开始了解夏宫涅的身份和背景。杨纯作为忠诚的保护者展现其外功武艺。
+
+#### 关键情节:
+- 杨羡决定释放黑衣刺客，获得正面情绪与感激值。
+
+- 了解杨纯的忠诚和保护能力，并开始培养他为可靠助手。
+
+
+
+### 第三章：神秘刺客
+
+#### 章节概述:
+一次偶然的机会，杨羡与夏宫涅相遇，并开始关注这位身份特殊的少女。府中再次出现暗杀威胁。
+
+#### 关键情节:
+
+- 黑衣刺客被释放后，杨羡决定让他成为自己的一名支持者，并为他提供庇护。 
+
+- 夏宫涅在府中逐渐显露出其特殊的身份和依赖心理，杨羡开始关心她的成长。
+
+### 第四章：利益纠葛
+
+#### 章节概述:
+面对桓氏与夏家的矛盾日益尖锐，杨羡开始采取行动确保自身安全。益州大族对他的威胁逐渐浮出水面。
+
+#### 关键情节:
+
+- 李、张、严等家族暗中策划针对杨羡的行动，试图在桓氏与夏家之间制造矛盾。 
+
+- 夏宫涅被秘密训练成为未来的接班人，并对杨羡产生了依赖情感。
+
+### 第五章：危机四伏
+
+#### 章节概述:
+随着桓氏势力的日益强大，梁军伐蜀的消息愈演愈烈。杨羡必须在保护夏宫涅和自身安全之间做出选择。
+
+#### 关键情节:
+
+- 杨纯提醒并加强了府中的安保措施，平安富贵四人作为家兵继续护卫杨羡。 
+
+- 黑衣刺客再次出现，在刺杀未遂后被重新收押，并在后续对话中揭示出更多关于李、张等家族的阴谋。
+
 ```
+## 生成的(很水)
+```
+第二章 是不是给你脸了
 
-The templates are fully customizable, you can add your own templates in the extension settings ``Prompt Templates``. ``key`` is the name that you want to show in the list of templates, ``value`` is the path to the template file (``.txt``, ``.py``, ``.h``, etc). Try this feature and write your own templates, you can make the generated codes follow your coding style, generate with a specific function name, or add a specific comment, etc.
+    夜凉如水，晚风徐徐。
+
+    窗外漆黑一片，屋中却是夜色深沉，寒意微透轻纱.
+
+    杨羡盘腿坐在榻上,手中轻轻把玩着一把精致的玉如意。茶水已经凉透，他却无心再续接:
+
+，只是一杯苦涩回味在口。
+
+杨羡抬头望向窗外的夜色,眼神中带着一丝不易察觉的心思。
+这时，门外忽然传来轻柔的脚步声。杨羡微眯起眼睛，心中微微一动。
+
+片刻之后,门轻轻推开的声音响起，一个清冷的女声低声道：“少主。”是杨羡的手下小晴。
+
+杨羡微微颔首示意，声音温和却带着一丝不易察觉的威严：“进来说吧。”
+
+窗外的夜色依旧静谧无声。屋内光线昏黄，烛光摇曳生姿中透出几抹温柔。
+
+小晴小心翼翼地走到榻前,跪坐在地上，“少主，府上再次收到消息，在益州附近出现了一队黑衣人。据探子回报，他们似乎是在为某位重要人物。
+
+杨羡眉头微皱，“有何迹象表明他们是针对我？”
+
+小晴低声答道：“少主，他们行动诡秘，并未直接袭击府邸。但有一队黑衣人在靠近时突然折返，在我方视线之外的某个隐蔽处逗留了许久，似乎在观察。”
+
+杨羡目光如炬，“看来他们是在等什么人。继续严密监视周围动静。”小晴领命离去，烛光下留下了一个孤寂的背影。
+
+杨羡叹了口气,窗外夜风轻拂过枯枝落叶的声音愈发清晰，屋内却依旧保持着那份宁静与沉稳。他闭上眼睛，深吸一口气，试图将思绪从纷扰中拉回的正轨：“杨纯。”
+
+“进来吧。”声音温和而坚定。屋门轻轻一响，一道身影无声无息地出现在了榻前。
+
+杨纯低着头走进来，在地上跪下，“少主。”
+
+“”你来了就好，有件事想与你说说。这些黑衣人似乎是为了什么重要人物的出现而来的。”
+
+杨纯微微抬头看着他，眼中带着一丝不解：“少主的意思是“是不是要与我商量对策？”
+
+杨羡轻轻一笑，“不只是这样。你已经证明了你的忠诚和武艺，但我想让你不仅仅是作为我的保镖存在。”
+杨羡目光温和地看着面前的青年。烛光下，那张坚毅而英俊的脸庞显得更加立体，仿佛在诉说着过往经历中所历经的风雨与坚持。“我想让你成为我的可靠助手。你有没有兴趣？”
+
+杨纯闻言沉默片刻，随即坚定地抬起头来：“少主既然如此信任我，自然愿意效忠您，“那就从现在开始吧。不过在此之前，请帮我一个忙。”杨羡语气平和却透过了一丝不容置疑的坚定。
+
+“我需要你去一趟府外，”外面有一个黑衣刺客刚刚被释放出来。”杨羡目光锐利地盯着他，“确保他的安全。同时也要让他知道，我需要他的帮助。”
+
+“我会保护好我的少主和府中的每一个人！”杨纯坚定地回应道。他的话语中蕴含着一股不容抗拒的力量，让屋内的空气似乎都为之凝固了几分。“少羡微微颔首：“很好。我会给他一个机会让他证明自己。”杨纯躬身行礼“明白，我这就去安排。”说完便迅速站起身来。烛光下他显得更加坚定而有力，“我会尽全力让他知道这里的家，不仅是避风的港湾。”
+
+杨羡点了点头：“你去吧。记住，他身上有着巨大的价值——不只对我个人如此重要。”
+
+门外再次传来轻柔的脚步声，似乎是小晴的复命。杨纯站起身来准备
+```
